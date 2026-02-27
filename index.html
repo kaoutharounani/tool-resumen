@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumidor de Textos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 95%;
+            height: 150px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: none;
+            margin-bottom: 20px;
+            font-family: inherit;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #resultado {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #e8f4f8;
+            border-left: 5px solid #3498db;
+            border-radius: 5px;
+            text-align: left;
+            display: none; /* Oculto hasta que haya resumen */
+            line-height: 1.6;
+        }
+        .etiqueta-resultado {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>¿Deseas tener un breve resumen?</h1>
+        
+        <textarea id="textoOriginal" placeholder="Pega aquí el texto que deseas resumir..."></textarea>
+        
+        <button onclick="generarResumen()">¡Quiero el resumen!</button>
+
+        <div id="resultado">
+            <span class="etiqueta-resultado">Tu resumen:</span>
+            <p id="textoResumido"></p>
+        </div>
+    </div>
+
+    <script>
+        function generarResumen() {
+            const texto = document.getElementById('textoOriginal').value.trim();
+            const divResultado = document.getElementById('resultado');
+            const parrafoResumen = document.getElementById('textoResumido');
+
+            if (texto === "") {
+                alert("Por favor, introduce algún texto para resumir.");
+                return;
+            }
+
+            // --- LÓGICA DE RESUMEN BÁSICO (Simulación) ---
+            // Como no tenemos una IA conectada, este algoritmo básico 
+            // extraerá la primera y la última frase del texto.
+            
+            // Separamos el texto por puntos
+            const oraciones = texto.split('.').filter(oracion => oracion.trim().length > 0);
+            
+            let resumen = "";
+
+            if (oraciones.length <= 2) {
+                // Si el texto es muy corto, lo dejamos igual
+                resumen = texto;
+            } else {
+                // Tomamos la primera frase (introducción) y la última (conclusión)
+                resumen = oraciones[0].trim() + ". ... " + oraciones[oraciones.length - 1].trim() + ".";
+            }
+
+            // --- FIN DE LA LÓGICA ---
+
+            // Mostramos el resultado en la pantalla
+            parrafoResumen.innerText = resumen;
+            divResultado.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
